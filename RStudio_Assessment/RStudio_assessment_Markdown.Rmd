@@ -111,49 +111,57 @@ ggplot(cars, aes(x = speed, y=dist))+
 Task 3.7
 Again using the cars dataset, now use linear regression (lm) to estimate the average reaction time for the driver to start breaking (in seconds). To simplify matters you may assume that once breaking commences, breaking distance is proportional to the square of the speed. Explain the steps in your analysis. Do you get reasonable results? Finally, use ggplot to plot the data points and the fitted relationship. (9pt)
 ```{r}
-# 1 feet = 0.000189394 mile; the breaking distance is multiplied by 0.000189394 to convert the distant variables to miles.
-breakdis_mil <- cars$dist*0.000189394
+# 1 feet = 0.000189394 mile; the stopping distance is multiplied by 0.000189394 to convert the stopping distant variables to miles.
+Stopping_distance_mil <- cars$dist*0.000189394
+Stopping_distance_mil
 
 # As the breaking distance is proportional to the square of the speed, the variable speedsqr was made. 
 speedsqr <- cars$speed^2
 
-# The 'lm' function is then used to find the coefficients of the between the breaking distance in miles and the square of the speeds.
-Reaction_time_linear_model <- lm(formula = breakdis_mil ~ speedsqr)
-Reaction_time_linear_model
+#The linear_model variable is created from the lm function of the stopping distance proportional to the square of the speed.
+linear_model_reaction_time <- lm(formula = Stopping_distance_mil ~ speedsqr, data=cars)
 
 # The fitted slope coefficient was then extracted and placed in the variable 'fitted_co' as it is represents the expected breaking distance per mile added. 
-fitted_co <- coef(Reaction_time_linear_model)[2]
-fitted_co
+fitted_co_mil <- coef(linear_model_reaction_time)[2]
+fitted_co_mil
 
-# The mean values of the speed  are placed in a set variable 'speed_mean'.
-speed_mean <- mean(cars$speed)
-speed_mean
+#As the breaking distance (represented as y) is proportional to the square of the speed (represented as x), we can therefore use the formula y=kx; Where k represents the coefficient of the fitted slope.
+breakdis_mil <- speedsqr*fitted_co_mil
+breakdis_mil
 
-# The reaction distance is assumed to be approximately half that of the breaking distance; the stopping distance is the sum of the breaking distance and the reaction distance. Therefore to calculate the average reaction distance we would divide the fitted_co variable by 2 and then multiply the value with the mean speed find the average reaction distance. This formula was then inputted into the 'av_react_dist' variable.
-av_react_dist <- (fitted_co/2)*speed_mean
-av_react_dist
+# The stopping distance is the sum of 
+React_dis_mil <- Stopping_distance_mil-breakdis_mil
+React_dis_mil
 
-# The average reaction time in hours is calculated by dividing the average breaking distance  with the 'av_react_dist' variable. 
-rtime_hrs <- av_react_dist/speed_mean
-rtime_hrs
+
+# The averages were calculated for both the mean reaction distance and speed.
+av_react_dist_mil <- mean(React_dis_mil)
+av_react_dist_mil
+
+av_speed <- mean(cars$speed)
+av_speed
+
+# The average reaction time in hours is calculated by dividing the average reaction distances  with the the average reaction speed. 
+av_react_time_hrs <- av_react_dist_mil/av_speed
+av_react_time_hrs
 
 # To convert 1 hour to seconds, we multiply 60 by 60 to get 3600 seconds in the variable 'hr_to_sec'.
 hr_to_sec <- 60*60
 hr_to_sec
 
-# The reaction time was then converted to seconds by dividing it with the 'hr_to_sec' variable, this gives an average reaction time of 0.04396661 seconds.
-rtime_sec <- rtime_hrs*hr_to_sec
+# The reaction time was then converted to seconds by dividing it with the 'hr_to_sec' variable, this gives an average reaction time of 0.3922691 seconds.
+rtime_sec <- av_react_time_hrs*hr_to_sec
 rtime_sec
 
 # The given reaction time, in seconds, appears to be lower than the expected average value of 1.5 seconds. Therefore the proposed calculation does not appear to be accurate as a variety of factors can influence the breaking distance of a moving vehicle. This includes both  environmental and behavioral factors. 
 
 # ggplot is used to plot the data using the custom variables described previously. 
-ggplot(cars, aes(x = speedsqr, y=breakdis_mil))+
+ggplot(cars,aes(x = speedsqr, y=Stopping_distance_mil))+
   geom_point()+
   geom_smooth(method = "lm")+
   labs(title = "Reaction time Linear Model",
-       x = expression("speed in miles per hour squared"~mph^2),
-       y = "Breaking distance in miles")
+       x = expression("speed"~mph^2),
+       y = "Stopping distance in miles")
 ```
 
 

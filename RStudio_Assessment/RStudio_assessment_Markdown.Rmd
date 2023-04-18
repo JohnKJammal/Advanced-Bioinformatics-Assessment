@@ -11,11 +11,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown: General R/Rstudio assessment 
 
+
+
 Task 3.1 
 Using the sum() function and : operator, write an expression in the code snippet to evaluate the sum of all integers between 5 and 55. (4pt)
 ```{r}
 sum(5:55)
 ```
+
+
+
+
 
 Task 3.2
 Write a function called sumfun with one input parameter, called n, that calculates the sum of all integers between 5 and n. Use the function to do the calculation for n = 10, n = 20, and n = 100 and present the results. (4pt)
@@ -27,6 +33,10 @@ sumfun(10)
 sumfun(20)
 sumfun(100)
 ```
+
+
+
+
 
 Task 3.3
 The famous Fibonacci series is calculated as the sum of the two preceding members of the sequence, where the first two steps in the sequence are 1, 1. Write an R script using a for loop to calculate and print out the first 12 entries of the Fibonacci series. (4pt)
@@ -43,6 +53,10 @@ for (f in 3:n)
 print(fibonacci)
 ```
 
+
+
+
+
 Task 3.4
 With the mtcars data set bundled with R, use ggplot to generate a box of miles per gallon (in the variable mpg) as a function of the number of gears (in the variable gear). Use the fill aesthetic to color bars by number of gears. (4pt)
 ```{r}
@@ -52,24 +66,32 @@ ggplot(mtcars, aes(x= as.factor(gear),y=mpg))+
   labs(title="Miles per gallon as a function of the number of gears", x="Number of gears", y="Miles per gallon")
 ```
 
+
+
+
+
 Task 3.5
 Using the cars dataset and the function lm, fit a linear relationship between speed and breaking distance in the variable distance. What are the fitted slope and intercept of the line, and their standard errors? What are the units used for the variables in the dataset? (4pt)
 ```{r}
-# The head command was used to determine and explore the data set with its corresponding variables.
+#The head command was used to determine and explore the data set with its corresponding variables.
 head(cars, 5)
 
-# The linear_model variable is created from the lm function of the distance proportional to the speed.
+
+#The linear_model variable is created from the lm function of the distance proportional to the speed.
 linear_model <- lm(formula = dist ~ speed, data=cars)
 
-# This line provides the summary of the coefficients in the linear_model variable. 
+
+#This line provides the summary of the coefficients in the linear_model variable. 
 summary(linear_model)$coefficients
 
-# The Y intercept of the line has a value of -17.579095 whereas the fitted slope of the breaking distance has a value of 3.932409.
 
-# The standard error for the Y intercept is 6.7584402 whereas the fitted slope of the breaking distance has a standard error value of 0.4155128.
-
-# The units for the speed variable is in miles per hour (mph) whereas the units used for the breaking distant variable is in feet (ft).
+#The Y intercept of the line has a value of -17.579095 whereas the fitted slope of the breaking distance has a value of 3.932409.
+#The standard error for the Y intercept is 6.7584402 whereas the fitted slope of the breaking distance has a standard error value of 0.4155128.
+#The units for the speed variable is in miles per hour (mph) whereas the units used for the breaking distant variable is in feet (ft).
 ```
+
+
+
 
 Task 3.6
 Use ggplot to plot the data points from Task 6 and the linear fit. (4pt)
@@ -81,6 +103,10 @@ ggplot(cars, aes(x = speed, y=dist))+
        x="Speed in miles per hour (mph)",
        y="Breaking Distance in feet (ft)")
 ```
+
+
+
+
 
 Task 3.7
 Again using the cars dataset, now use linear regression (lm) to estimate the average reaction time for the driver to start breaking (in seconds). To simplify matters you may assume that once breaking commences, breaking distance is proportional to the square of the speed. Explain the steps in your analysis. Do you get reasonable results? Finally, use ggplot to plot the data points and the fitted relationship. (9pt)
@@ -119,7 +145,7 @@ hr_to_sec
 rtime_sec <- rtime_hrs*hr_to_sec
 rtime_sec
 
-# The given reaction time in seconds appears to be lower than the expected average value of 1.5 seconds. Therefore the proposed calculation does not appear to be accurate as there are a number of factors required to calculate the reaction time of a moving vehicle. This includes environmental factors; human factors such as sex, age, and intoxications; type of    
+# The given reaction time, in seconds, appears to be lower than the expected average value of 1.5 seconds. Therefore the proposed calculation does not appear to be accurate as a variety of factors can influence the breaking distance of a moving vehicle. This includes both  environmental and behavioral factors. 
 
 # ggplot is used to plot the data using the custom variables described previously. 
 ggplot(cars, aes(x = speedsqr, y=breakdis_mil))+
@@ -130,7 +156,15 @@ ggplot(cars, aes(x = speedsqr, y=breakdis_mil))+
        y = "Breaking distance in miles")
 ```
 
+
+
+
+
 ## R Markdown: RNA-seq assessment 
+
+
+
+
 
 Task 3.8
 Read in count data and sample description. (1pts)
@@ -147,6 +181,10 @@ sample_des <- read.table("LMS_RNAseq_short-master-2023-final/course/exercises/da
 # Explore sample description data
 head(sample_des)
 ```
+
+
+
+
 
 Task 3.9
 Create col_data and check dimensions.  (1 pts)
@@ -167,6 +205,10 @@ all(colnames(exercise_counts) == sample_des$condition)
 all(colnames(exercise_counts) == sample_des$batch)
 ```
 
+
+
+
+
 Task 3.10
 Construct DESeqDataSet object using count data and sample description.   (1 pts)
 ```{r}
@@ -180,6 +222,10 @@ dds <- DESeqDataSetFromMatrix(countData = exercise_counts,
 # DESeq normalization
 dds <- DESeq(dds)
 ```
+
+
+
+
 
 Task 3.11
 Perform rlog and VST transformation on the data. (1 pts) 
@@ -196,6 +242,10 @@ vsd <- varianceStabilizingTransformation(dds)
 # Get rld in count format
 vsd_counts <- assay(vsd)
 ```
+
+
+
+
 
 Task 3.12
 Draw a heatmap of count matrix based on the top 40 highly expressed genes using rlog and VST data. (1 pts)
@@ -215,6 +265,10 @@ pheatmap(assay(rld)[select, ])
 # Heatmap of the vst transformed data
 pheatmap(assay(vsd)[select, ])
 ```
+
+
+
+
 
 Task 3.13
 Generate a SDM to see the clustering of count data. (1 pts)
@@ -244,12 +298,20 @@ pheatmap(sdm,
          col = colors)
 ```
 
+
+
+
+
 Task 3.14
 Perform the Principal Component Analysis using rlog method and find out the % significance values of first two principal components. (1 pts)
 ```{r}
 # PCA plot on our rld transformed data
 plotPCA(rld, intgroup = "condition")
 ```
+
+
+
+
 
 Task 3.15
 Repeat the PCA, this time using VST method and compare the plots with the ones obtained using rlog method. (1 pts)
@@ -258,12 +320,15 @@ Repeat the PCA, this time using VST method and compare the plots with the ones o
 plotPCA(vsd, intgroup = "condition")
 ```
 
+
+
+
+
 ## R Markdown: ChIP-seq assessment
 
 Task 3.16
 Read in the two Myc Mel peakset replicates and create the common peakset as we did for our previous exercise. (1 pts) 
 ```{r}
-
 peakset1 <- ChIPQC:::GetGRanges("LMS_ChIPseq_short-master-2023-final/course/data/MacsPeaks/mycmelrep1_peaks.xls", sep="\t", simple=F)
 peakset2 <- ChIPQC:::GetGRanges("LMS_ChIPseq_short-master-2023-final/course/data/MacsPeaks/mycmelrep2_peaks.xls", sep="\t", simple=F)
 
@@ -278,6 +343,10 @@ length(common_peakset)
 
 common_peakset[1:500,]
 ```
+
+
+
+
 
 Task 3.17
 Now we can rank them by their fold enrichment, select the top 500 peaks and resize these peaks to 200bp around centre. (1 pts)
@@ -302,6 +371,10 @@ commonpeaks <- resize(top_500,200,fix="center")
 commonpeaks
 ```
 
+
+
+
+
 Task 3.18
 Extract the sequences underneath the file and write them to FASTA file in you working directory. Inspect the file in notepad. (1 pts)
 ```{r}
@@ -325,6 +398,10 @@ commonpeaksequences[1:2]
 writeXStringSet(commonpeaksequences,file="consensusPeaks.fa")
 
 ```
+
+
+
+
 
 Task 3.19
 Upload the sequences to Meme-ChIP and report the results when complete. (1 pts)

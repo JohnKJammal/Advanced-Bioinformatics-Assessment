@@ -408,7 +408,7 @@ relationship between speed and breaking distance in the variable
 distance. What are the fitted slope and intercept of the line, and their
 standard errors? What are the units used for the variables in the
 dataset? (4pt)</p>
-<pre class="r"><code># The head command was used to determine and explore the data set with its corresponding variables.
+<pre class="r"><code>#The head command was used to determine and explore the data set with its corresponding variables.
 head(cars, 5)</code></pre>
 <pre><code>##   speed dist
 ## 1     4    2
@@ -416,19 +416,18 @@ head(cars, 5)</code></pre>
 ## 3     7    4
 ## 4     7   22
 ## 5     8   16</code></pre>
-<pre class="r"><code># The linear_model variable is created from the lm function of the distance proportional to the speed.
+<pre class="r"><code>#The linear_model variable is created from the lm function of the distance proportional to the speed.
 linear_model &lt;- lm(formula = dist ~ speed, data=cars)
 
-# This line provides the summary of the coefficients in the linear_model variable. 
+
+#This line provides the summary of the coefficients in the linear_model variable. 
 summary(linear_model)$coefficients</code></pre>
 <pre><code>##               Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) -17.579095  6.7584402 -2.601058 1.231882e-02
 ## speed         3.932409  0.4155128  9.463990 1.489836e-12</code></pre>
-<pre class="r"><code># The Y intercept of the line has a value of -17.579095 whereas the fitted slope of the breaking distance has a value of 3.932409.
-
-# The standard error for the Y intercept is 6.7584402 whereas the fitted slope of the breaking distance has a standard error value of 0.4155128.
-
-# The units for the speed variable is in miles per hour (mph) whereas the units used for the breaking distant variable is in feet (ft).</code></pre>
+<pre class="r"><code>#The Y intercept of the line has a value of -17.579095 whereas the fitted slope of the breaking distance has a value of 3.932409.
+#The standard error for the Y intercept is 6.7584402 whereas the fitted slope of the breaking distance has a standard error value of 0.4155128.
+#The units for the speed variable is in miles per hour (mph) whereas the units used for the breaking distant variable is in feet (ft).</code></pre>
 <p>Task 3.6 Use ggplot to plot the data points from Task 6 and the
 linear fit. (4pt)</p>
 <pre class="r"><code>ggplot(cars, aes(x = speed, y=dist))+
@@ -490,7 +489,7 @@ rtime_sec &lt;- rtime_hrs*hr_to_sec
 rtime_sec</code></pre>
 <pre><code>##   speedsqr 
 ## 0.04396661</code></pre>
-<pre class="r"><code># The given reaction time in seconds appears to be lower than the expected average value of 1.5 seconds. Therefore the proposed calculation does not appear to be accurate as there are a number of factors required to calculate the reaction time of a moving vehicle. This includes environmental factors; human factors such as sex, age, and intoxications; type of    
+<pre class="r"><code># The given reaction time, in seconds, appears to be lower than the expected average value of 1.5 seconds. Therefore the proposed calculation does not appear to be accurate as a variety of factors can influence the breaking distance of a moving vehicle. This includes both  environmental and behavioral factors. 
 
 # ggplot is used to plot the data using the custom variables described previously. 
 ggplot(cars, aes(x = speedsqr, y=breakdis_mil))+
